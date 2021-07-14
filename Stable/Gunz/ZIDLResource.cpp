@@ -30,6 +30,7 @@
 #include "ZStringResManager.h"
 #include "ZActionKey.h"
 #include "ZConfiguration.h"
+#include "LottieWidget.h"
 
 ZIDLResource::ZIDLResource()
 {
@@ -757,6 +758,36 @@ ZActionKey* ZIDLResource::GetActionKey(MXmlElement& element)
 	return pActionKey;
 }
 
+
+LottieWidget* ZIDLResource::GetLottieParams(MXmlElement& element)
+{
+	MXmlElement childElement;
+	char szBuf[1024];
+	MWidget* pParentWidget;	MListener* pListener;
+
+	pListener = pParentWidget = GetParentWidget(element);
+	LottieWidget* pLottie = new LottieWidget(MINT_LOTTIE, pParentWidget, pListener);
+	InsertWidget(element, pLottie);
+
+	int iCount = element.GetChildNodeCount();
+
+	for (int i = 0; i < iCount; i++)
+	{
+		memset(szBuf, 0, sizeof(szBuf));
+		childElement = element.GetChildNode(i);
+		childElement.GetTagName(szBuf);
+
+		if (GetCommonWidgetProperty(pLottie, childElement, szBuf)) continue;
+		if (!strcmp(szBuf, "FILE"))
+		{
+			std::string file;
+			childElement.GetContents(&file);
+			pLottie->LoadFilePath(file);
+		}
+	}
+	return pLottie;
+}
+
 void ZIDLResource::Parse(MXmlElement& element)
 {
 	MIDLResource::Parse(element);
@@ -840,6 +871,10 @@ void ZIDLResource::Parse(MXmlElement& element)
 	else if (!strcmp(szTagName,"ACTIONKEY"))
 	{
 		GetActionKey(element);
+	}
+	else if (!strcmp(szTagName, "LOTTIE"))
+	{
+		GetLottieParams(element);
 	}
 }
 

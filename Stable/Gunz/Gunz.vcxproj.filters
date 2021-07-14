@@ -915,6 +915,7 @@
     <ClInclude Include="ZEmoji.h">
       <Filter>Interface\Base</Filter>
     </ClInclude>
+    <ClInclude Include="LottieWidget.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ZBandiCapturer.cpp">
@@ -1652,6 +1653,7 @@
     <ClCompile Include="ZEmoji.cpp">
       <Filter>Interface\Base</Filter>
     </ClCompile>
+    <ClCompile Include="LottieWidget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="runtime\shader\skin.vsh">

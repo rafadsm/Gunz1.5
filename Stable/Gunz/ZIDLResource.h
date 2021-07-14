@@ -25,6 +25,7 @@ class ZClanListBox;
 class ZDuelTournamentRankingListBox;
 class ZServerView;
 class ZActionKey;
+class LottieWidget;
 
 class ZIDLResource : public MIDLResource
 {
@@ -49,6 +50,7 @@ protected:
 	ZDuelTournamentRankingListBox* GetDuelTournamentRankingListBox( MXmlElement& element );
 	ZServerView* GetServerView(MXmlElement& element);
 	ZActionKey* GetActionKey(MXmlElement& element);
+	LottieWidget* ZIDLResource::GetLottieParams(MXmlElement& element);
 
 	virtual void TransText(char* szSrc, char* szOut);		// 국제화를 위한 함수
 	virtual void Parse(MXmlElement& element);

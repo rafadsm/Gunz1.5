@@ -5,6 +5,7 @@
 #include "ZButton.h"
 #include "ZMsgBox.h"
 #include "ZActionKey.h"
+#include "LottieWidget.h"
 
 _USING_NAMESPACE_REALSPACE2
 
@@ -38,7 +39,8 @@ public:
 		if(strcmp(szClass, MINT_BUTTON)==0) return new ZButton(szName, pParent, pListener);
 		else if( strcmp(szClass, MINT_BMBUTTON)==0) return new ZBmButton(szName, pParent, pListener);
 		else if( strcmp(szClass, MINT_MSGBOX)==0) return new ZMsgBox(szName, pParent, pListener);
-		else if( strcmp(szClass, MINT_ACTIONKEY)==0) return new ZActionKey(szName, pParent, pListener);
+		else if (strcmp(szClass, MINT_ACTIONKEY) == 0) return new ZActionKey(szName, pParent, pListener);
+		//else if (strcmp(szClass, MINT_LOTTIE) == 0) return new LottieWidget(szName, pParent, pListener);
 		return Mint::NewWidget(szClass, szName, pParent, pListener);
 	}
 

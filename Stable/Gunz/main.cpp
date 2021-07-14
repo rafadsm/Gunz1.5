@@ -114,6 +114,8 @@ void _ZChangeGameState(int nIndex)
 //list<HANDLE>	g_FontMemHandles;
 static bool bFirstLoad = true;
 
+#include <rlottie.h>
+
 RRESULT OnCreate(void *pParam)
 {
 	g_App.PreCheckArguments();
@@ -145,6 +147,17 @@ RRESULT OnCreate(void *pParam)
 	{
 		RResetDevice(&modeParams);
 	}
+
+	//I added dx9 backend inside lottie render function
+	//So, need pass DX9 pointer and type
+	if (!rlottie::Animation::SetDX9Ptr(RGetDevice(), g_isDirect3D9ExEnabled ? rlottie::D3D9Ex : rlottie::D3D9))
+	{
+		mlog("Invalid Lottie DirectX Ptr");
+		return R_ERROR_LOADING;
+	}
+	//rlottie::Animation::GetElapsedTime() is used by animations, so, need start elapsed count
+	rlottie::Animation::StartElapsedTime();
+
 	string strFileLenzFlare("System/LenzFlare.xml");
 	RCreateLenzFlare(strFileLenzFlare.c_str());
 	RGetLenzFlare()->Initialize();
