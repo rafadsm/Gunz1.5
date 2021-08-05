@@ -86,7 +86,6 @@ ZApplication::ZApplication()
 	m_bLaunchTest = false;
 
 	SetLaunchMode(ZLAUNCH_MODE_DEBUG);
-	m_lastShiftTime.Set_MakeCrc(timeGetTime());
 
 #ifdef _ZPROFILER
 	m_pProfiler = new ZProfiler;
@@ -838,7 +837,7 @@ void ZApplication::OnUpdate()
 
 	// 실행중 메모리 조작으로 item 속성값을 변경하는 해킹대응
 		unsigned long dwCurTime = timeGetTime();
-		if (dwCurTime - m_lastShiftTime.Ref() >= (15000 / RandomNumber(1,3)))
+		if (dwCurTime - m_lastShiftTime.Ref() >= ((unsigned long)15000 / RandomNumber(1,3)))
 		{
 			MGetMatchItemDescMgr()->ShiftMemoryGradually();
 			m_lastShiftTime.Set_CheckCrc(dwCurTime);
@@ -1063,7 +1062,11 @@ void ZApplication::SetSystemValue(const char* szField, const char* szData)
 	MRegistry::Write(HKEY_CURRENT_USER, szField, szData);
 }
 
-
+void ZApplication::ShiftBytesOnStart()
+{
+	m_lastShiftTime.Set_MakeCrc(timeGetTime());
+	m_Timer.ShiftBytesOnStart();
+}
 
 void ZApplication::InitFileSystem()
 {

@@ -55,8 +55,6 @@ ZTimer::ZTimer()
 	m_pThistime = new DWORD;
 	m_pLasttime = new DWORD;
 	m_pElapsed = new DWORD;
-	m_lastShiftTime.Set_MakeCrc(timeGetTime());
-
 }
 
 ZTimer::~ZTimer()
@@ -80,6 +78,11 @@ ZTimer::~ZTimer()
 void ZTimer::ResetFrame()
 {
 	m_bInitialized=false;
+}
+
+void ZTimer::ShiftBytesOnStart()
+{
+	m_lastShiftTime.Set_MakeCrc(timeGetTime());
 }
 
 float ZTimer::UpdateFrame()
@@ -127,7 +130,7 @@ float ZTimer::UpdateFrame()
 	UpdateEvents();			// 타이머 이벤트들 업데이트
 	unsigned long dwCurTime = timeGetTime();
 
-	if (dwCurTime - m_lastShiftTime.Ref() >= (15000 / RandomNumber(1,3)))
+	if (dwCurTime - m_lastShiftTime.Ref() >= ((unsigned long)15000 / RandomNumber(1,3)))
 	{
 		m_lastShiftTime.Set_CheckCrc(dwCurTime);
 		ShiftFugitiveValues();

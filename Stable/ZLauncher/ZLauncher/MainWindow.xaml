@@ -3,23 +3,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ZLauncher"
         mc:Ignorable="d"
-        Title="GunZ Launcher" Height="600" Width="800" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
-    <!--  Style="{StaticResource CustomWindowStyle}">-->
-    <Viewbox Name="MainView" Width="Auto" Height="Auto" Stretch="Fill">
+        Title="" Height="480" Width="1024" WindowStyle="None" Background="#333333" ResizeMode="NoResize" BorderBrush="#333333" 
+        BorderThickness="2" MouseDown="Window_MouseDown">
+    <Grid>
+        <WebBrowser Name="webView"  Margin="0,56,0.444,56.444" Source="https://launcher2.fgunz.net"/>
 
-        <Grid>
-            <WebBrowser x:Name="Browser" VerticalAlignment="Top" Source="http://duelists.online" HorizontalAlignment="Left" Height="678" Width="1008" Navigated="OnNavigated" Margin="0,23,0,0"/>
-            <Button x:Name="button1" Content="Start Patch" HorizontalAlignment="Left" Margin="912,722,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" FontStretch="Expanded"/>
-            <ProgressBar x:Name="progBar1" HorizontalAlignment="Left" Height="20" Margin="0,722,0,0" VerticalAlignment="Top" Width="895" Foreground="#FF0591F1"/>
-            <Button x:Name="StartGame" Content="Start Game" HorizontalAlignment="Left" Margin="912,722,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
-            <TextBox x:Name="DownloadFile" HorizontalAlignment="Left" Height="21" Margin="10,701,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="215" BorderThickness="0" FontStretch="Expanded"/>
-            <TextBox x:Name="progPercentage" HorizontalAlignment="Left" Height="21" Margin="230,701,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="43" BorderThickness="0" FontStretch="Expanded"/>
-            <Button x:Name="CancelDownload" Content="Cancel" HorizontalAlignment="Left" Margin="912,722,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
-            <TextBox x:Name="SearchURI" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="943" KeyDown="SearchURI_KeyDown" Panel.ZIndex="0" Margin="65,0,0,0"/>
-            <Button x:Name="PreviousButton" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="23" Content="bk" Click="PreviousButton_Click"/>
-            <Button x:Name="NextButton" HorizontalAlignment="Left" Width="23" Content="fd" Margin="23,0,0,719" Click="NextButton_Click"/>
-        </Grid>
-    </Viewbox>
+        <StackPanel Orientation="Vertical" Height="56" Background="{StaticResource Banner_Top}" VerticalAlignment="Top" Opacity="0.5" Margin="0,0,0.444,0"/>
+        <StackPanel Orientation="Vertical" Height="56" Background="{StaticResource Banner_Bottom}" VerticalAlignment="Bottom" Opacity="0.5" Margin="0,0,0.444,0.444"/>
+
+
+        <DockPanel Width="1024" Opacity="1" Margin="0,0,-3.556,0.444">
+            <Grid DockPanel.Dock="Bottom" Height="auto"  Opacity="1">
+                <TextBlock x:Name="DownloadFile"  Foreground="#CF5300" Width="auto" Height="auto" VerticalAlignment="Top" Margin="0,-17,0,0"/>
+                <ProgressBar x:Name="ProgressBar" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="900" Height="24" Foreground="#CF5300" Background="#80FFFFFF"
+                         BorderBrush="Black" BorderThickness="3" Visibility="Hidden"/>
+
+            </Grid>
+        </DockPanel>
+        <Button x:Name="Menu" Background="{StaticResource Menu}" Width="32" Height="32" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Menu_Click"/>
+        <StackPanel x:Name="SettingsPanel" Style="{StaticResource MenuGrow}" Width="0" Height="32" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,32,0" Visibility="Collapsed">
+            <Button x:Name="Config"  Background="{StaticResource Settings}" Width="32" Height="32" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Config_Click"/>
+            <Button x:Name="Exit" Width="32" Height="32" HorizontalAlignment="Right" VerticalAlignment="Top"  Content="X"  Margin="0,-32,32,0" Click="Exit_Click"/>
+        </StackPanel>
+
+        <Button x:Name="Patch" Style="{StaticResource PatchButton}" Width="100" Height="35" HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="Visible" Click="StartPatch"/>
+        <Button x:Name="Launch" Style="{StaticResource LaunchButton}" Width="100" Height="35" HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="Hidden" Click="StartGame"/>
+    </Grid>
+
 </Window>

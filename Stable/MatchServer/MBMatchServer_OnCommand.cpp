@@ -86,7 +86,7 @@ bool MBMatchServer::OnCommand(MCommand* pCommand)
 			if (pCommand->GetParameter(&nChecksumPack, 5, MPT_UINT)==false) break;
 
 			//todok mark
-			OnRequestLoginNetmarble(pCommand->GetSenderUID(), szAuthCookie, szDataCookie, szCPCookie, szSpareParam, nCommandVersion, nChecksumPack);
+			//OnRequestLoginNetmarble(pCommand->GetSenderUID(), szAuthCookie, szDataCookie, szCPCookie, szSpareParam, nCommandVersion, nChecksumPack);
 			//OnRequestLoginNetmarble(pCommand->GetSenderUID(), szCPCookie, szSpareParam, nCommandVersion, nChecksumPack);
 #endif
 		}
@@ -250,54 +250,6 @@ bool MBMatchServer::OnCommand(MCommand* pCommand)
 			pCommand->GetParameter( szAnnounce, 0, MPT_STR, ANNOUNCE_STRING_LEN );
 
 			OnRequestKeeperStopServerSchedule( pCommand->GetSenderUID(), szAnnounce );
-		}
-		break;
-
-	case MC_LOCAL_UPDATE_USE_COUNTRY_FILTER :
-		{
-			OnLocalUpdateUseCountryFilter();
-		}
-		break;
-
-	case MC_LOCAL_GET_DB_IP_TO_COUNTRY :
-		{
-			OnLocalGetDBIPtoCountry();
-		}
-		break;
-
-	case MC_LOCAL_GET_DB_BLOCK_COUNTRY_CODE : 
-		{
-			OnLocalGetDBBlockCountryCode();
-		}
-		break;
-
-	case MC_LOCAL_GET_DB_CUSTOM_IP :
-		{
-			OnLocalGetDBCustomIP();
-		}
-		break;
-
-	case MC_LOCAL_UPDATE_IP_TO_COUNTRY :
-		{
-			OnLocalUpdateIPtoCountry();
-		}
-		break;
-
-	case MC_LOCAL_UPDATE_BLOCK_COUTRYCODE :
-		{
-			OnLocalUpdateBlockCountryCode();
-		}
-		break;
-
-	case MC_LOCAL_UPDATE_CUSTOM_IP :
-		{
-			OnLocalUpdateCustomIP();
-		}
-		break;
-
-	case MC_LOCAL_UPDATE_ACCEPT_INVALID_IP :
-		{
-			OnLocalUpdateAcceptInvaildIP();
 		}
 		break;
 

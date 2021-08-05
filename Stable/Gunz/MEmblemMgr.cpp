@@ -86,8 +86,12 @@ bool MEmblemMgr::LoadCache()
 
 	if (!xmlDoc.LoadFromFile(GetEmblemDataFile()))
 	{
-		xmlDoc.Destroy();
-		return false;
+		xmlDoc.SaveToFile(GetEmblemDataFile());
+		if (!xmlDoc.LoadFromFile(GetEmblemDataFile()))
+		{
+			xmlDoc.Destroy();
+			return false;
+		}
 	}
 
 	MXmlElement rootElement,emblemElement,childElement;
@@ -210,7 +214,7 @@ bool MEmblemMgr::SaveCache()
 
 		emblemElement.AppendText("\n\t\t");
 
-		sprintf(szBuf,"%u", pNode->GetTimeLastUsed());
+		sprintf(szBuf,"%llu", pNode->GetTimeLastUsed());
 		childElement = emblemElement.CreateChildElement(MTOK_EMBLEM_TIMELASTUSED);
 		childElement.SetContents(szBuf);
 

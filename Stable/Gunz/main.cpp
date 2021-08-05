@@ -11,7 +11,7 @@
 #include <shlwapi.h>
 #include <shellapi.h>
 
-#include "dxerr9.h"
+#include "dxerr.h"
 
 #include "main.h"
 #include "resource.h"
@@ -1100,9 +1100,8 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 
 	srand( (unsigned)time( NULL ));
 
-#if defined(LOCALE_BRAZIL) || defined(LOCALE_INDIA) || defined(LOCALE_US) || defined(LOCALE_KOREA)
 	//#ifndef _DEBUG
-	#ifdef _PUBLISH
+#ifdef _PUBLISH
 		// GunzLock을 띄워놓고 Gunz.exe를 실행하면 종료직전 대기한다. (XProtector 프로세스이미지스캔 작업용)
 	/*	HANDLE hMutexGunzLock = CreateMutex(NULL, TRUE, "GunzLock");
 		if (GetLastError() == ERROR_ALREADY_EXISTS)
@@ -1110,8 +1109,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 			WaitForSingleObject(hMutexGunzLock, INFINITE);
 			CloseHandle(hMutexGunzLock);
 		}*/
-	#endif
-#endif	// LOCALE_NHNUSA
+#endif
 
 	// 로그 시작
 	mlog("GUNZ " STRFILEVER " launched. build (" __DATE__" " __TIME__") \n");
@@ -1144,7 +1142,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 
 	// Initialize MZFileSystem - MUpdate 
 	MRegistry::szApplicationName=APPLICATION_NAME;
-
+	g_App.ShiftBytesOnStart();
 	g_App.InitFileSystem();
 
 #ifdef _PUBLISH
